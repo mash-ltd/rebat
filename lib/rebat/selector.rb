@@ -6,23 +6,23 @@ class Rebat::Selector
     @query_list = []
   end
 
-  def where(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id)
-    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id, Rebat::Thrift::QueryType::WHERE)
+  def where(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_key)
+    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, @client.relations[relation_key], Rebat::Thrift::QueryType::WHERE)
     return self
   end
 
-  def union(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id)
-    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id, Rebat::Thrift::QueryType::UNION)
+  def union(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_key)
+    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, @client.relations[relation_key], Rebat::Thrift::QueryType::UNION)
     return self
   end
 
-  def intersect(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id)
-    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id, Rebat::Thrift::QueryType::INTERSECT)
+  def intersect(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_key)
+    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, @client.relations[relation_key], Rebat::Thrift::QueryType::INTERSECT)
     return self
   end
 
-  def exclude(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id)
-    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id, Rebat::Thrift::QueryType::EXCLUDE)
+  def exclude(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_key)
+    @query_list << create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, @client.relations[relation_key], Rebat::Thrift::QueryType::EXCLUDE)
     return self
   end
 
