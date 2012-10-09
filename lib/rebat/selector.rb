@@ -27,7 +27,7 @@ class Rebat::Selector
   end
 
   def entries
-    @client.send do |client|
+    @client.sendQuery do |client|
       return client.selectQuery(@query_list)
     end
   end
