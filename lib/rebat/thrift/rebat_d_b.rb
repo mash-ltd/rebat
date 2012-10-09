@@ -73,6 +73,21 @@ require 'rebat_types'
                   raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'selectQuery failed: unknown result')
                 end
 
+                def truncate()
+                  send_truncate()
+                  return recv_truncate()
+                end
+
+                def send_truncate()
+                  send_message('truncate', Truncate_args)
+                end
+
+                def recv_truncate()
+                  result = receive_message(Truncate_result)
+                  return result.success unless result.success.nil?
+                  raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'truncate failed: unknown result')
+                end
+
               end
 
               class Processor
@@ -104,6 +119,13 @@ require 'rebat_types'
                   result = SelectQuery_result.new()
                   result.success = @handler.selectQuery(args.queryList)
                   write_result(result, oprot, 'selectQuery', seqid)
+                end
+
+                def process_truncate(seqid, iprot, oprot)
+                  args = read_args(iprot, Truncate_args)
+                  result = Truncate_result.new()
+                  result.success = @handler.truncate()
+                  write_result(result, oprot, 'truncate', seqid)
                 end
 
               end
@@ -230,6 +252,37 @@ require 'rebat_types'
 
                 FIELDS = {
                   SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => Rebat::Thrift::Edge}}
+                }
+
+                def struct_fields; FIELDS; end
+
+                def validate
+                end
+
+                ::Thrift::Struct.generate_accessors self
+              end
+
+              class Truncate_args
+                include ::Thrift::Struct, ::Thrift::Struct_Union
+
+                FIELDS = {
+
+                }
+
+                def struct_fields; FIELDS; end
+
+                def validate
+                end
+
+                ::Thrift::Struct.generate_accessors self
+              end
+
+              class Truncate_result
+                include ::Thrift::Struct, ::Thrift::Struct_Union
+                SUCCESS = 0
+
+                FIELDS = {
+                  SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
                 }
 
                 def struct_fields; FIELDS; end

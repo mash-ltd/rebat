@@ -10,7 +10,7 @@ class Rebat::Client
     @transport.open
   end
 
-  def send(&block)
+  def sendQuery(&block)
     begin
       @transport.open unless @transport.open?
       yield @client
@@ -33,7 +33,7 @@ class Rebat::Client
     edge.weight         = weight
     edge.relationId     = relations[relation_key]
 
-    self.send do |client|
+    self.sendQuery do |client|
       client.addQuery(edge)
     end
   end
@@ -47,7 +47,7 @@ class Rebat::Client
     edge.toEntityType   = to_entity_type
     edge.relationId     = relations[relation_key]
 
-    self.send do |client|
+    self.sendQuery do |client|
       client.updateWeightQuery(edge, new_weight)
     end
   end
@@ -61,7 +61,7 @@ class Rebat::Client
     edge.toEntityType   = to_entity_type
     edge.relationId     = relations[relation_key]
 
-    self.send do |client|
+    self.sendQuery do |client|
       client.deleteQuery(edge)
     end
   end
@@ -80,6 +80,12 @@ class Rebat::Client
 
   def exclude(*args)
     Rebat::Selector.new(self).exclude *args
+  end
+
+  def truncate
+    self.sendQuery do |client|
+      client.truncate
+    end
   end
 
   private
