@@ -26,9 +26,9 @@ class Rebat::Client
   def add(from_entity_id, from_entity_type, to_entity_id, to_entity_type, weight, relation_key)
     edge = Rebat::Thrift::Edge.new
 
-    edge.fromEntityId   = from_entity_id
+    edge.fromEntityId   = from_entity_id.to_s
     edge.fromEntityType = from_entity_type
-    edge.toEntityId     = to_entity_id
+    edge.toEntityId     = to_entity_id.to_s
     edge.toEntityType   = to_entity_type
     edge.weight         = weight
     edge.relationId     = relations[relation_key]
@@ -41,9 +41,9 @@ class Rebat::Client
   def updateWeight(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_key, new_weight)
     edge = Rebat::Thrift::Edge.new
 
-    edge.fromEntityId   = from_entity_id
+    edge.fromEntityId   = from_entity_id.to_s
     edge.fromEntityType = from_entity_type
-    edge.toEntityId     = to_entity_id
+    edge.toEntityId     = to_entity_id.to_s
     edge.toEntityType   = to_entity_type
     edge.relationId     = relations[relation_key]
 
@@ -55,9 +55,9 @@ class Rebat::Client
   def delete(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_key)
     edge = Rebat::Thrift::Edge.new
 
-    edge.fromEntityId   = from_entity_id
+    edge.fromEntityId   = from_entity_id.to_s
     edge.fromEntityType = from_entity_type
-    edge.toEntityId     = to_entity_id
+    edge.toEntityId     = to_entity_id.to_s
     edge.toEntityType   = to_entity_type
     edge.relationId     = relations[relation_key]
 

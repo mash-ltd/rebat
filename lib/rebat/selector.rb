@@ -38,10 +38,10 @@ class Rebat::Selector
   def create_query(from_entity_id, from_entity_type, to_entity_id, to_entity_type, relation_id, qtype)
     edge = Rebat::Thrift::Edge.new
 
-    edge.fromEntityId   = from_entity_id    unless from_entity_id.nil?
-    edge.fromEntityType = from_entity_type  unless from_entity_type.nil?
-    edge.toEntityId     = to_entity_id      unless to_entity_id.nil?
-    edge.toEntityType   = to_entity_type    unless to_entity_type.nil?
+    edge.fromEntityId   = from_entity_id.to_s   unless from_entity_id.nil?
+    edge.fromEntityType = from_entity_type      unless from_entity_type.nil?
+    edge.toEntityId     = to_entity_id.to_s     unless to_entity_id.nil?
+    edge.toEntityType   = to_entity_type        unless to_entity_type.nil?
     edge.relationId     = relation_id
 
     query = Rebat::Thrift::Query.new
