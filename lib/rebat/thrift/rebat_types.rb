@@ -26,9 +26,9 @@ module Rebat
           RELATIONID = 6
 
           FIELDS = {
-            FROMENTITYID => {:type => ::Thrift::Types::I64, :name => 'fromEntityId', :optional => true},
+            FROMENTITYID => {:type => ::Thrift::Types::STRING, :name => 'fromEntityId', :optional => true},
             FROMENTITYTYPE => {:type => ::Thrift::Types::STRING, :name => 'fromEntityType', :optional => true},
-            TOENTITYID => {:type => ::Thrift::Types::I64, :name => 'toEntityId', :optional => true},
+            TOENTITYID => {:type => ::Thrift::Types::STRING, :name => 'toEntityId', :optional => true},
             TOENTITYTYPE => {:type => ::Thrift::Types::STRING, :name => 'toEntityType', :optional => true},
             WEIGHT => {:type => ::Thrift::Types::I64, :name => 'weight', :default => 0, :optional => true},
             RELATIONID => {:type => ::Thrift::Types::I64, :name => 'relationId', :optional => true}
